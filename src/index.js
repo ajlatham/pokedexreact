@@ -3,28 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { LocaleProvider } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
+
+const localApp = (
+  <LocaleProvider locale={enUS}>
+    <App />
+  </LocaleProvider>
+);
 
 
-function tick() {
-
-	const element = ( 
-		<div>
-			<h1>Gotta catch em all!</h1>;
-			<h2>It is {new Date().toLocaleTimeString()}.</h2>
-
-		</div>
-
-	);
-	ReactDOM.render(
-		element,
-		document.getElementById('root')
-	);
-
-}
-
-setInterval(tick, 1000);
 
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+
+
+
+ReactDOM.render(localApp, document.getElementById('root'));
 
 registerServiceWorker();
