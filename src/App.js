@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import './App.css';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import Clock from './clock';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -59,7 +60,7 @@ class App extends Component {
               </Menu>
             </Sider>
             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-              Content
+              <Clock message="Gotta catch em all!" />
             </Content>
           </Layout>
         </Content>
