@@ -1,18 +1,31 @@
-function tick() {
+import React, { Component } from 'react';
 
-	const element = (
-		<div>
-			<h1>Gotta catch em all!</h1>;
-			<h2>It is {new Date().toLocaleTimeString()}.</h2>
+class Clock extends Component {
 
-		</div>
+	constructor (props) {
+        super(props);
+        this.state = {time: new Date().toLocaleTimeString()};
+        this.tick = this.tick.bind(this);
+	}
 
-	);
-	ReactDOM.render(
-		element,
-		document.getElementById('root')
-	);
+	tick () {
+		this.setState({time: new Date().toLocaleTimeString()});
+	}
 
+	componentDidMount() {
+		setInterval(this.tick, 1000);
+	}
+
+	render () {
+		return (
+			<div>
+				<div>
+					<h1>{this.props.message}</h1>
+					<h2>It is {this.state.time}.</h2>
+				</div>
+			</div>
+		);
+	}
 }
 
-setInterval(tick, 1000);
+export default Clock;
