@@ -1,19 +1,32 @@
 import React, {Component} from 'react';
 import { Layout, Menu, Breadcrumb, Icon, Input } from 'antd';
 import { Route, NavLink } from 'react-router-dom'
-import Clock from 'clock';
-import Types from 'Types';
-
+import Clock from '../clock';
+import Regions from '../Recources/Locations/regions';
+import Places from '../places';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
-
 
  class Map extends Component {
 
   constructor(props){
     super(props);
     this.state = {};
+  }
+
+  getInitialState() {
+    return {
+      regions:[]
+    }
+  }
+  componentDidMount() {
+    Regions.getRegionsList()
+    .then(function (data) {
+      this.setState({
+        regions: data.results
+      });
+    }.bind(this));
   }
 
   render() {
@@ -79,6 +92,7 @@ const { Search } = Input;
             </Sider>
             <Content style={{ padding: '0 24px' }}>
               <Route path="/types" component={Types} />
+              <Places regions={this.state.regions} />
             </Content>
           </Layout>
         </Content>
