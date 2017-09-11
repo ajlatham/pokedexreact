@@ -4,6 +4,8 @@ import { Route, NavLink } from 'react-router-dom'
 import Clock from '../clock';
 import Regions from '../Recources/Locations/regions';
 import Places from '../places';
+import Types from 'Types';
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
@@ -20,6 +22,7 @@ const { Search } = Input;
       regions:[]
     }
   }
+
   componentDidMount() {
     Regions.getRegionsList()
     .then(function (data) {
