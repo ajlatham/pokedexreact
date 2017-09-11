@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input } from 'antd';
+import { Route, NavLink } from 'react-router-dom'
 import Clock from '../clock';
 import Regions from '../Recources/Locations/regions';
 import Places from '../places';
+import Types from 'Types';
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+const { Search } = Input;
 
  class Map extends Component {
+
   constructor(props){
     super(props);
     this.state = {};
   }
+
   getInitialState() {
     return {
       regions:[]
     }
   }
+
   componentDidMount() {
     Regions.getRegionsList()
     .then(function (data) {
@@ -24,6 +31,7 @@ const { Header, Content, Footer, Sider } = Layout;
       });
     }.bind(this));
   }
+
   render() {
     return(
       <Layout>
@@ -32,12 +40,23 @@ const { Header, Content, Footer, Sider } = Layout;
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={['2']}
             style={{ lineHeight: '64px' }}
           >
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
+            <Menu.Item key="1">
+              <NavLink to="/regions" >
+                Regions
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <NavLink to="/types" activeClassName="active">
+                Types
+              </NavLink>
+            </Menu.Item>
+            <Search
+                placeholder="Search by name or number"
+                style={{ width: 200, marginLeft: 40 }}
+                onSearch={value => console.log(value)}
+              />
           </Menu>
         </Header>
         <Content style={{ padding: '0 50px' }}>
@@ -74,19 +93,20 @@ const { Header, Content, Footer, Sider } = Layout;
                 </SubMenu>
               </Menu>
             </Sider>
-            <Content style={{ padding: '0 24px', minHeight: 723 }}>
+            <Content style={{ padding: '0 24px' }}>
+              <Route path="/types" component={Types} />
               <Places regions={this.state.regions} />
-              <div className='wrapper'>
-                <div className='gcea'>
-                  <Clock message="Gotta catch em all!" />
-                </div>
-              </div>
             </Content>
           </Layout>
         </Content>
-
+        <Footer>
+          <div style={{ textAlign: 'center' }}>
+            <Clock message="Gotta catch em all!" />
+          </div>
+        </Footer>
       </Layout>
     );
   }
 }
+
 export default Map;
